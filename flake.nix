@@ -18,11 +18,14 @@
 
           ./users/cappabot.nix
 
+          cappaos.nixosModules.cinnamon
+          cappaos.nixosModules.lightdm
+
+          cappaos.nixosModules.inside-virtual-machine
+
           cappaos.nixosModules.base
           cappaos.nixosModules.development
           #cappaos.nixosModules.gaming
-          cappaos.nixosModules.cinnamon
-          cappaos.nixosModules.inside-virtual-machine
         ];
       };
 
@@ -39,6 +42,7 @@
           cappaos.nixosModules.development
           #cappaos.nixosModules.driftwm TODO: do this
           cappaos.nixosModules.cinnamon
+          cappaos.nixosModules.lightdm
         ];
       };
 
@@ -51,9 +55,10 @@
 
           ./users/cappabot.nix
 
-          cappaos.nixosModules.base
           cappaos.nixosModules.i3
           cappaos.nixosModules.ly
+
+          cappaos.nixosModules.base
         ];
       };
 
