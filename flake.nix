@@ -24,6 +24,7 @@
           cappaos.nixosModules.inside-virtual-machine
 
           cappaos.nixosModules.base
+          cappaos.nixosModules.base-graphical
           cappaos.nixosModules.development
           #cappaos.nixosModules.gaming
         ];
@@ -39,6 +40,7 @@
           ./users/cappabot.nix
 
           cappaos.nixosModules.base
+          cappaos.nixosModules.base-graphical
           cappaos.nixosModules.development
           #cappaos.nixosModules.driftwm TODO: do this
           cappaos.nixosModules.cinnamon
@@ -59,6 +61,7 @@
           cappaos.nixosModules.ly
 
           cappaos.nixosModules.base
+          cappaos.nixosModules.base-graphical
         ];
       };
 
