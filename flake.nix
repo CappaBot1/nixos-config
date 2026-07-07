@@ -4,7 +4,7 @@
   inputs = {
     nixpkgs.url = "github:NixOS/nixpkgs/nixos-unstable";
 
-    cappaos.url = "github:CappaBot/CappaOS-Nix";
+    cappaos.url = "github:CappaBot1/CappaOS-Nix";
   };
 
   outputs = { self, nixpkgs, cappaos, ... }: {
