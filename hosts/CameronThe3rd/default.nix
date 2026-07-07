@@ -14,6 +14,9 @@
   boot.loader.systemd-boot.enable = true;
   boot.loader.efi.canTouchEfiVariables = true;
 
+  # so I can build for the rpi
+  boot.binfmt.emulatedSystems = [ "aarch64-linux" ];
+
   networking.hostName = "CameronThe3rd"; # Define your hostname.
   # networking.wireless.enable = true;  # Enables wireless support via wpa_supplicant.
 
