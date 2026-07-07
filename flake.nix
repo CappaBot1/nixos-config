@@ -22,6 +22,7 @@
           cappaos.nixosModules.development
           #cappaos.nixosModules.gaming
           cappaos.nixosModules.cinnamon
+          cappaos.nixosModules.inside-virtual-machine
         ];
       };
 
