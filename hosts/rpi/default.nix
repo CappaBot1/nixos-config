@@ -17,6 +17,9 @@
 
   networking.hostName = "rpi"; # Define your hostname.
 
+  # make me a trusted user so I can compile from CameronThe3rd
+  nix.settings.trusted-users = [ "cappabot" ];
+
   # Configure network connections interactively with nmcli or nmtui.
   networking.networkmanager.enable = true;
 
