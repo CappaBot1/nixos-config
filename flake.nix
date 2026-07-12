@@ -57,8 +57,10 @@
 
           ./users/cappabot.nix
 
-          cappaos.nixosModules.i3
-          cappaos.nixosModules.ly
+          #cappaos.nixosModules.i3 # flameshot is broken so I'm not going to use i3
+          #cappaos.nixosModules.ly # TODO: fix the error messages covering the password field
+          cappaos.nixosModules.cinnamon
+          cappaos.nixosModules.lightdm
 
           cappaos.nixosModules.base
           cappaos.nixosModules.base-graphical
