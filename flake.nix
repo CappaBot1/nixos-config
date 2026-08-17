@@ -79,6 +79,25 @@
           cappaos.nixosModules.base
         ];
       };
+
+      usb = nixpkgs.lib.nixosSystem {
+        system = "x86_64-linux";
+
+        modules = [
+          ./common.nix
+          ./hosts/usb
+
+          ./users/cappabot.nix
+
+          cappaos.nixosModules.cinnamon
+          cappaos.nixosModules.lightdm
+
+          cappaos.nixosModules.base
+          cappaos.nixosModules.base-graphical
+          cappaos.nixosModules.development
+          #cappaos.nixosModules.gaming
+        ];
+      };
     };
   };
 }
