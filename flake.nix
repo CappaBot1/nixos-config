@@ -26,6 +26,7 @@
           cappaos.nixosModules.base
           cappaos.nixosModules.base-graphical
           cappaos.nixosModules.development
+          cappaos.nixosModules.school
           #cappaos.nixosModules.gaming
         ];
       };
@@ -95,6 +96,7 @@
           cappaos.nixosModules.base
           cappaos.nixosModules.base-graphical
           cappaos.nixosModules.development
+          cappaos.nixosModules.school
           #cappaos.nixosModules.gaming
         ];
       };

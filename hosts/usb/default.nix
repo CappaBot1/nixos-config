@@ -23,11 +23,6 @@
   # Enable networking
   networking.networkmanager.enable = true;
 
-  # guh
-  environment.systemPackages = with pkgs; [
-    google-chrome
-  ];
-
   # List services that you want to enable:
 
   # Enable the OpenSSH daemon.
