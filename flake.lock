@@ -5,11 +5,11 @@
         "nixpkgs": "nixpkgs"
       },
       "locked": {
-        "lastModified": 1787117504,
-        "narHash": "sha256-Z58jNMbXuw6dKruwYC9I+LGV2GZuoswF8TxugFPwJgA=",
+        "lastModified": 1787119509,
+        "narHash": "sha256-HekgGI2wzqMaaV9m6bcaQpIuJLwEmrfV0nN+s4ZCKZA=",
         "owner": "CappaBot1",
         "repo": "CappaOS-Nix",
-        "rev": "903a249484d31b62f2244883f5dff9dbd88b3944",
+        "rev": "ccf16b5f96df7b68316fe919bee910fa07caee35",
         "type": "github"
       },
       "original": {
