@@ -25,6 +25,7 @@
 
           cappaos.nixosModules.base
           cappaos.nixosModules.base-graphical
+          cappaos.nixosModules.flake-support
           cappaos.nixosModules.development
           cappaos.nixosModules.school
           #cappaos.nixosModules.gaming
@@ -42,6 +43,7 @@
 
           cappaos.nixosModules.base
           cappaos.nixosModules.base-graphical
+          cappaos.nixosModules.flake-support
           cappaos.nixosModules.development
           #cappaos.nixosModules.driftwm TODO: do this
           cappaos.nixosModules.cinnamon
@@ -65,6 +67,7 @@
 
           cappaos.nixosModules.base
           cappaos.nixosModules.base-graphical
+          cappaos.nixosModules.flake-support
         ];
       };
 
@@ -78,6 +81,7 @@
           ./users/cappabot.nix
 
           cappaos.nixosModules.base
+          cappaos.nixosModules.flake-support
         ];
       };
 
@@ -95,6 +99,7 @@
 
           cappaos.nixosModules.base
           cappaos.nixosModules.base-graphical
+          cappaos.nixosModules.flake-support
           cappaos.nixosModules.development
           cappaos.nixosModules.school
           #cappaos.nixosModules.gaming
