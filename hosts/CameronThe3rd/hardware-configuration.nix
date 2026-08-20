@@ -13,6 +13,18 @@
   boot.kernelModules = [ "kvm-intel" ];
   boot.extraModulePackages = [ ];
 
+  hardware.graphics = {
+    enable = true;
+  };
+
+  services.xserver.videoDrivers = ["nvidia"];
+
+  hardware.nvidia = {
+    package = config.boot.kernelPackages.nvidiaPackages.production;
+    open = false;
+    nvidiaSettings = true;
+  };
+
   fileSystems."/" =
     { device = "/dev/disk/by-uuid/8ab8a27f-d560-4265-a55b-e0fbbd4d5bcd";
       fsType = "ext4";
