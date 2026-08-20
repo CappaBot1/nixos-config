@@ -26,9 +26,11 @@
           cappaos.nixosModules.base
           cappaos.nixosModules.base-graphical
           cappaos.nixosModules.flake-support
+          
           cappaos.nixosModules.development
           cappaos.nixosModules.school
           cappaos.nixosModules.gaming
+          cappaos.nixosModules.creator
         ];
       };
 
