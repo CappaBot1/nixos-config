@@ -79,6 +79,7 @@
         modules = [
           ./common.nix
           ./hosts/rpi
+          ./hosts/rpi/cloudflare-tunnel.nix
 
           ./users/cappabot.nix
 
