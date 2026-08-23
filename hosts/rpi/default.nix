@@ -90,7 +90,15 @@
   # List services that you want to enable:
 
   # Enable the OpenSSH daemon.
-  services.openssh.enable = true;
+  services.openssh = {
+    enable = true;
+
+    settings = {
+      PasswordAuthentication = false;
+      KbdInteractiveAuthentication = false;
+      PermitRootLogin = "no";
+    };
+  };
 
   # enable fail2ban
   services.fail2ban = {
@@ -128,4 +136,3 @@
   system.stateVersion = "26.11"; # Did you read the comment?
 
 }
-
