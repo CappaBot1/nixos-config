@@ -96,6 +96,7 @@
           ./hosts/usb
 
           ./users/cappabot.nix
+          ./users/guest.nix
 
           cappaos.nixosModules.cinnamon
           cappaos.nixosModules.lightdm
@@ -105,7 +106,6 @@
           cappaos.nixosModules.flake-support
           cappaos.nixosModules.development
           cappaos.nixosModules.school
-          #cappaos.nixosModules.gaming
         ];
       };
     };
