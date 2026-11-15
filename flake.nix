@@ -5,14 +5,9 @@
     nixpkgs.url = "github:NixOS/nixpkgs/nixos-unstable";
 
     cappaos.url = "github:CappaBot1/CappaOS-Nix";
-
-    nixos-hardware = {
-      url = "github:NixOS/nixos-hardware";
-      inputs.nixpkgs.follows = "nixpkgs";
-    };
   };
 
-  outputs = { self, nixpkgs, cappaos, nixos-hardware, ... }:
+  outputs = { self, nixpkgs, cappaos, ... }:
 
   let rpiModules = [
     ./common.nix
@@ -20,8 +15,6 @@
     ./hosts/rpi/cloudflare-tunnel.nix
 
     ./users/cappabot.nix
-
-    nixos-hardware.nixosModules.raspberry-pi-4
 
     cappaos.nixosModules.base
     cappaos.nixosModules.flake-support
@@ -106,8 +99,6 @@
           "${nixpkgs}/nixos/modules/installer/sd-card/sd-image-aarch64.nix"
 
           ({ lib, ... }: {
-            hardware.raspberry-pi.firmware.uboot.enable = true;
-
             boot.supportedFilesystems.zfs = lib.mkForce false;
           })
         ] ++ rpiModules;
