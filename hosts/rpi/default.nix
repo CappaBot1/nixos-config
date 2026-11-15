@@ -35,6 +35,7 @@
       address = "192.168.88.1";
       interface = "eth0";
     };
+    nameservers = [ "1.1.1.1" "8.8.8.8" ];
   };
 
   # Set your time zone.
