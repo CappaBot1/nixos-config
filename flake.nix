@@ -5,9 +5,29 @@
     nixpkgs.url = "github:NixOS/nixpkgs/nixos-unstable";
 
     cappaos.url = "github:CappaBot1/CappaOS-Nix";
+
+    nixos-hardware = {
+      url = "github:NixOS/nixos-hardware";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
   };
 
-  outputs = { self, nixpkgs, cappaos, ... }: {
+  outputs = { self, nixpkgs, cappaos, nixos-hardware, ... }:
+
+  let rpiModules = [
+    ./common.nix
+    ./hosts/rpi
+    ./hosts/rpi/cloudflare-tunnel.nix
+
+    ./users/cappabot.nix
+
+    nixos-hardware.nixosModules.raspberry-pi-4
+
+    cappaos.nixosModules.base
+    cappaos.nixosModules.flake-support
+  ];
+
+  in {
     nixosConfigurations = {
       CameronThe3rd = nixpkgs.lib.nixosSystem {
         system = "x86_64-linux";
@@ -75,17 +95,22 @@
 
       rpi = nixpkgs.lib.nixosSystem {
         system = "aarch64-linux";
+        modules = rpiModules;
+      };
+
+      # Bootable Raspberry Pi image
+      rpi-image = nixpkgs.lib.nixosSystem {
+        system = "aarch64-linux";
 
         modules = [
-          ./common.nix
-          ./hosts/rpi
-          ./hosts/rpi/cloudflare-tunnel.nix
+          "${nixpkgs}/nixos/modules/installer/sd-card/sd-image-aarch64.nix"
 
-          ./users/cappabot.nix
+          ({ lib, ... }: {
+            hardware.raspberry-pi.firmware.uboot.enable = true;
 
-          cappaos.nixosModules.base
-          cappaos.nixosModules.flake-support
-        ];
+            boot.supportedFilesystems.zfs = lib.mkForce false;
+          })
+        ] ++ rpiModules;
       };
 
       usb = nixpkgs.lib.nixosSystem {
