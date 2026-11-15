@@ -23,6 +23,20 @@
   # Configure network connections interactively with nmcli or nmtui.
   networking.networkmanager.enable = true;
 
+  # set up default ip
+  networking = {
+    interfaces.eth0 = {
+      ipv4.addresses = [{
+        address = "192.168.88.67";
+        prefixLength = 24;
+      }];
+    };
+    defaultGateway = {
+      address = "192.168.88.1";
+      interface = "eth0";
+    };
+  };
+
   # Set your time zone.
   # time.timeZone = "Europe/Amsterdam";
 
