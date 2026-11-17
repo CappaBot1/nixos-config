@@ -12,7 +12,7 @@
   let rpiModules = [
     ./common.nix
     ./hosts/rpi
-    ./hosts/rpi/cloudflare-tunnel.nix
+    #./hosts/rpi/cloudflare-tunnel.nix
     ./hosts/rpi/whipstaff.nix
 
     ./users/cappabot.nix
