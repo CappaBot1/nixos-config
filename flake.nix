@@ -7,124 +7,133 @@
     cappaos.url = "github:CappaBot1/CappaOS-Nix";
   };
 
-  outputs = { self, nixpkgs, cappaos, ... }:
+  outputs =
+    {
+      self,
+      nixpkgs,
+      cappaos,
+      ...
+    }:
 
-  let rpiModules = [
-    ./common.nix
-    ./hosts/rpi
-    #./hosts/rpi/cloudflare-tunnel.nix
-    ./hosts/rpi/whipstaff.nix
+    let
+      rpiModules = [
+        ./common.nix
+        ./hosts/rpi
+        #./hosts/rpi/cloudflare-tunnel.nix
+        ./hosts/rpi/whipstaff.nix
 
-    ./users/cappabot.nix
+        ./users/cappabot.nix
 
-    cappaos.nixosModules.base
-    cappaos.nixosModules.flake-support
-  ];
+        cappaos.nixosModules.base
+        cappaos.nixosModules.flake-support
+      ];
 
-  in {
-    nixosConfigurations = {
-      CameronThe3rd = nixpkgs.lib.nixosSystem {
-        system = "x86_64-linux";
+    in
+    {
+      nixosConfigurations = {
+        CameronThe3rd = nixpkgs.lib.nixosSystem {
+          system = "x86_64-linux";
 
-        modules = [
-          ./common.nix
-          ./hosts/CameronThe3rd
+          modules = [
+            ./common.nix
+            ./hosts/CameronThe3rd
 
-          ./users/cappabot.nix
+            ./users/cappabot.nix
 
-          cappaos.nixosModules.cinnamon
-          cappaos.nixosModules.lightdm
+            cappaos.nixosModules.cinnamon
+            cappaos.nixosModules.lightdm
 
-          cappaos.nixosModules.inside-virtual-machine
+            cappaos.nixosModules.inside-virtual-machine
 
-          cappaos.nixosModules.base
-          cappaos.nixosModules.base-graphical
-          cappaos.nixosModules.flake-support
-          
-          cappaos.nixosModules.development
-          cappaos.nixosModules.school
-          cappaos.nixosModules.gaming
-          cappaos.nixosModules.creator
-        ];
-      };
+            cappaos.nixosModules.base
+            cappaos.nixosModules.base-graphical
+            cappaos.nixosModules.flake-support
 
-      laptop = nixpkgs.lib.nixosSystem {
-        system = "x86_64-linux";
+            cappaos.nixosModules.development
+            cappaos.nixosModules.school
+            cappaos.nixosModules.gaming
+            cappaos.nixosModules.creator
+          ];
+        };
 
-        modules = [
-          ./common.nix
-          ./hosts/claptop
+        laptop = nixpkgs.lib.nixosSystem {
+          system = "x86_64-linux";
 
-          ./users/cappabot.nix
+          modules = [
+            ./common.nix
+            ./hosts/claptop
 
-          cappaos.nixosModules.base
-          cappaos.nixosModules.base-graphical
-          cappaos.nixosModules.flake-support
-          cappaos.nixosModules.development
-          #cappaos.nixosModules.driftwm TODO: do this
-          cappaos.nixosModules.cinnamon
-          cappaos.nixosModules.lightdm
-        ];
-      };
+            ./users/cappabot.nix
 
-      silver = nixpkgs.lib.nixosSystem {
-        system = "x86_64-linux";
+            cappaos.nixosModules.base
+            cappaos.nixosModules.base-graphical
+            cappaos.nixosModules.flake-support
+            cappaos.nixosModules.development
+            #cappaos.nixosModules.driftwm TODO: do this
+            cappaos.nixosModules.cinnamon
+            cappaos.nixosModules.lightdm
+          ];
+        };
 
-        modules = [
-          ./common.nix
-          ./hosts/silver
+        silver = nixpkgs.lib.nixosSystem {
+          system = "x86_64-linux";
 
-          ./users/cappabot.nix
+          modules = [
+            ./common.nix
+            ./hosts/silver
 
-          #cappaos.nixosModules.i3 # flameshot is broken so I'm not going to use i3
-          #cappaos.nixosModules.ly # TODO: fix the error messages covering the password field
-          cappaos.nixosModules.cinnamon
-          cappaos.nixosModules.lightdm
+            ./users/cappabot.nix
 
-          cappaos.nixosModules.base
-          cappaos.nixosModules.base-graphical
-          cappaos.nixosModules.flake-support
-        ];
-      };
+            #cappaos.nixosModules.i3 # flameshot is broken so I'm not going to use i3
+            #cappaos.nixosModules.ly # TODO: fix the error messages covering the password field
+            cappaos.nixosModules.cinnamon
+            cappaos.nixosModules.lightdm
 
-      rpi = nixpkgs.lib.nixosSystem {
-        system = "aarch64-linux";
-        modules = rpiModules;
-      };
+            cappaos.nixosModules.base
+            cappaos.nixosModules.base-graphical
+            cappaos.nixosModules.flake-support
+          ];
+        };
 
-      # Bootable Raspberry Pi image
-      rpi-image = nixpkgs.lib.nixosSystem {
-        system = "aarch64-linux";
+        rpi = nixpkgs.lib.nixosSystem {
+          system = "aarch64-linux";
+          modules = rpiModules;
+        };
 
-        modules = [
-          "${nixpkgs}/nixos/modules/installer/sd-card/sd-image-aarch64.nix"
+        # Bootable Raspberry Pi image
+        rpi-image = nixpkgs.lib.nixosSystem {
+          system = "aarch64-linux";
 
-          ({ lib, ... }: {
-            boot.supportedFilesystems.zfs = lib.mkForce false;
-          })
-        ] ++ rpiModules;
-      };
+          modules = [
+            "${nixpkgs}/nixos/modules/installer/sd-card/sd-image-aarch64.nix"
 
-      usb = nixpkgs.lib.nixosSystem {
-        system = "x86_64-linux";
+            ({ lib, ... }: {
+              boot.supportedFilesystems.zfs = lib.mkForce false;
+            })
+          ]
+          ++ rpiModules;
+        };
 
-        modules = [
-          ./common.nix
-          ./hosts/usb
+        usb = nixpkgs.lib.nixosSystem {
+          system = "x86_64-linux";
 
-          ./users/cappabot.nix
-          ./users/guest.nix
+          modules = [
+            ./common.nix
+            ./hosts/usb
 
-          cappaos.nixosModules.cinnamon
-          cappaos.nixosModules.lightdm
+            ./users/cappabot.nix
+            ./users/guest.nix
 
-          cappaos.nixosModules.base
-          cappaos.nixosModules.base-graphical
-          cappaos.nixosModules.flake-support
-          cappaos.nixosModules.development
-          cappaos.nixosModules.school
-        ];
+            cappaos.nixosModules.cinnamon
+            cappaos.nixosModules.lightdm
+
+            cappaos.nixosModules.base
+            cappaos.nixosModules.base-graphical
+            cappaos.nixosModules.flake-support
+            cappaos.nixosModules.development
+            cappaos.nixosModules.school
+          ];
+        };
       };
     };
-  };
 }
