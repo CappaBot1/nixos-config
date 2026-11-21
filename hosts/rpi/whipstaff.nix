@@ -34,7 +34,6 @@
 
     requires = [ "network-online.target" ];
     after = [ "network-online.target" ];
-    wantedBy = [ "whipstaff.target" ];
 
     unitConfig.RequiresMountsFor = "/rpistorage";
 
@@ -61,11 +60,10 @@
   };
 
   systemd.services.whipstaff-nextjs-frontend = {
-    description = "Whipstaff Next.js frontend server";
+    description = "Whipstaff Next.js frontend";
 
     requires = [ "whipstaff-deploy.service" ];
     after = [ "whipstaff-deploy.service" ];
-    wantedBy = [ "whipstaff.target" ];
 
     path = [
       pkgs.deno
@@ -76,24 +74,22 @@
       User = "whipstaff";
       WorkingDirectory = "/rpistorage/whipstaff/nextjs-frontend";
 
-      ExecStartPre = "${pkgs.deno}/bin/deno install --allow-scripts";
-      # ExecStartPre = "deno task build";
-      # ExecStart = "deno task start";
-      ExecStart = "${pkgs.deno}/bin/deno task dev";
+      ExecStartPre = [
+        "${pkgs.deno}/bin/deno install --allow-scripts"
+        "${pkgs.deno}/bin/deno task build"
+      ];
+      ExecStart = "${pkgs.deno}/bin/deno task start";
 
-      Restart = "always";
+      Restart = "on-abnormal";
       RestartSec = 5;
-      StartLimitIntervalSec = 3600;
-      StartLimitBurst = 5;
     };
   };
 
-  systemd.services.whipstaff-websocket = {
-    description = "Whipstaff websocket server";
+  systemd.services.whipstaff-deno-backend = {
+    description = "Whipstaff deno backend";
 
     requires = [ "whipstaff-deploy.service" ];
     after = [ "whipstaff-deploy.service" ];
-    wantedBy = [ "whipstaff.target" ];
 
     path = [
       pkgs.deno
@@ -102,14 +98,32 @@
     serviceConfig = {
       Type = "simple";
       User = "whipstaff";
-      WorkingDirectory = "/rpistorage/whipstaff/websocket";
+      WorkingDirectory = "/rpistorage/whipstaff/deno-backend";
 
-      ExecStart = "${pkgs.deno}/bin/deno task serve";
+      ExecStart = "${pkgs.deno}/bin/deno task start";
 
-      Restart = "always";
+      Restart = "on-abnormal";
       RestartSec = 5;
-      StartLimitIntervalSec = 3600;
-      StartLimitBurst = 5;
     };
+  };
+
+  systemd.targets.whipstaff = {
+    description = "Whipstaff application";
+
+    wantedBy = [ "multi-user.target" ];
+
+    requires = [
+      "whipstaff-deploy.service"
+      "whipstaff-nextjs-frontend.service"
+      "whipstaff-deno-backend.service"
+    ];
+
+    after = [ "whipstaff-deploy.service" ];
+  };
+
+  networking.firewall = {
+    enable = true;
+    allowedTCPPorts = [ 56700 56701 ];
+    allowedUDPPorts = [ 56700 56701 ];
   };
 }
