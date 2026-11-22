@@ -80,7 +80,7 @@
       ];
       ExecStart = "${pkgs.deno}/bin/deno task start";
 
-      Restart = "on-abnormal";
+      Restart = "always";
       RestartSec = 5;
     };
   };
@@ -104,7 +104,7 @@
 
       ExecStart = "${pkgs.deno}/bin/deno task start";
 
-      Restart = "on-abnormal";
+      Restart = "always";
       RestartSec = 5;
     };
   };
