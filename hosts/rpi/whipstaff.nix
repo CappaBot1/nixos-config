@@ -93,6 +93,8 @@
 
     path = [
       pkgs.deno
+      pkgs.bash
+      pkgs.wakeonlan
     ];
 
     serviceConfig = {
